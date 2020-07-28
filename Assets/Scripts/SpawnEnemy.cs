@@ -1,0 +1,52 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class SpawnEnemy : MonoBehaviour
+{
+    GameManager gameManager;
+    float waitTime;
+    public float spawnTime;
+    GameObject lastSpawn;
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        gameManager = GameObject.Find("Background").GetComponent<GameManager>();
+        spawnTime = Random.Range(5f, 9f);
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        waitTime += Time.deltaTime;
+        if (waitTime >= spawnTime && !gameManager.levelEnd && lastSpawn == null && gameManager.playerAlive)
+        {
+            waitTime = 0;
+            spawnTime = Random.Range(5f / Mathf.Clamp(1 + gameManager.level / 10, .5f, 5f), 9f / Mathf.Clamp(1 + gameManager.level / 10, .9f, 9f));
+            Spawn();
+        }
+    }
+
+    void Spawn()
+    {
+        float largeChance = 1 + (gameManager.level / 2);
+        float mediumChance = 1 + gameManager.level;
+        float randomLocation = Random.Range(transform.position.x - 2, transform.position.x + 2);
+
+        float spawnRandom = Random.Range(0f, 100f);
+        if (spawnRandom >= 100f - largeChance)
+        {
+            GameObject newSpawn = Instantiate(gameManager.enemyLarge[Random.Range(0, gameManager.enemyLarge.Length)], transform.position, transform.rotation);
+            lastSpawn = newSpawn;
+        }
+        else if (spawnRandom >= 100f - mediumChance)
+        {
+            Instantiate(gameManager.enemyMedium[Random.Range(0, gameManager.enemyMedium.Length)], transform.position, transform.rotation);
+        }
+        else
+        {
+            Instantiate(gameManager.enemySmall[Random.Range(0, gameManager.enemySmall.Length)], transform.position, transform.rotation);
+        }
+    }
+}
