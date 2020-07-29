@@ -9,6 +9,7 @@ public class Bullet : MonoBehaviour
     float destroyTime;
     public GameManager.BulletType bulletType;
     GameManager gameManager;
+    bool alreadyHit;
 
     // Start is called before the first frame update
     void Start()
@@ -28,8 +29,9 @@ public class Bullet : MonoBehaviour
     {
         if (bulletType == GameManager.BulletType.Player)
         {
-            if (other.GetComponent<EnemyMovement>() != null)
+            if (other.GetComponent<EnemyMovement>() != null && !alreadyHit)
             {
+                alreadyHit = true;
                 other.GetComponent<EnemyMovement>().TakeDamage(transform.position, bulletDamage);
                 gameManager.AddMoney(1);
                 Destroy(gameObject);
@@ -37,8 +39,9 @@ public class Bullet : MonoBehaviour
         }
         else
         {
-            if (other.GetComponent<PlayerControls>() != null)
+            if (other.GetComponent<PlayerControls>() != null && !alreadyHit)
             {
+                alreadyHit = true;
                 other.GetComponent<PlayerControls>().TakeDamage(transform.position, bulletDamage);
                 Destroy(gameObject);
             }

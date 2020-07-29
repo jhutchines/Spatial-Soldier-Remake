@@ -21,7 +21,8 @@ public class EnemyShooting : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (transform.position.z <= shootFrom && transform.position.z > -shootFrom && gameManager.playerAlive && !GetComponentInParent<EnemyMovement>().enemyDead)
+        if (transform.position.z <= shootFrom && transform.position.z > -shootFrom && gameManager.playerAlive && 
+            !GetComponentInParent<EnemyMovement>().enemyDead && !player.GetComponent<PlayerControls>().nextLevel)
         {
             transform.LookAt(player.transform);
             reloadTime += Time.deltaTime;

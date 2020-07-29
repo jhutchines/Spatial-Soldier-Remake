@@ -13,9 +13,12 @@ public class GameManager : MonoBehaviour
     public GameObject[] enemyMedium;
     public GameObject[] enemyLarge;
 
+    public Sprite[] backgrounds;
+
     public EnemyMovement[] enemies;
 
     public bool levelEnd;
+    public bool levelStarted;
 
     public int level;
     public int money;
@@ -29,20 +32,25 @@ public class GameManager : MonoBehaviour
     private float time;
     PlayerControls player;
 
+    public GameObject gameOver;
+
+
     // Start is called before the first frame update
     void Start()
     {
+        enemies = new EnemyMovement[0];
         player = GameObject.Find("Player").GetComponent<PlayerControls>();
         if (PlayerPrefs.GetInt("FirstTime") == 0)
         {
             level = 1;
             money = 0;
             maxHealth = 1;
-            health = 1;
+            health = 10;
             weaponDamage = 1;
             bulletSpeed = 1;
             rateOfFire = 1;
             shipSpeed = 1;
+            PlayerPrefs.SetInt("FirstTime", 1);
         }
         else
         {
@@ -54,9 +62,14 @@ public class GameManager : MonoBehaviour
             bulletSpeed = PlayerPrefs.GetFloat("BulletSpeed");
             rateOfFire = PlayerPrefs.GetFloat("RateOfFire");
             shipSpeed = PlayerPrefs.GetFloat("ShipSpeed");
-            PlayerPrefs.SetInt("FirstTime", 1);
         }
         player.UpdateStats(maxHealth, health, weaponDamage, bulletSpeed, rateOfFire, shipSpeed);
+
+        int rand = Random.Range(0, backgrounds.Length);
+        for (int i = 0; i < transform.childCount; i++)
+        {
+            transform.GetChild(i).GetComponent<SpriteRenderer>().sprite = backgrounds[rand];
+        }
     }
 
     // Update is called once per frame
@@ -64,12 +77,16 @@ public class GameManager : MonoBehaviour
     {
         enemies = FindObjectsOfType<EnemyMovement>();
         time += Time.deltaTime;
-        if (time >= 20f)
+        if (time >= (49f + level))
         {
             levelEnd = true;
         }
 
-        if (Input.GetKey(KeyCode.LeftShift) && Input.GetKeyDown(KeyCode.R)) ResetProgress();
+        if (Input.GetKey(KeyCode.LeftShift) && Input.GetKeyDown(KeyCode.R))
+        {
+            ResetProgress();
+            Debug.Log("Progress Reset");
+        }
     }
 
     public void AddMoney(int amount)
@@ -86,22 +103,22 @@ public class GameManager : MonoBehaviour
     {
         PlayerPrefs.SetInt("Level", 1);
         PlayerPrefs.SetInt("Money", 0);
-        PlayerPrefs.SetInt("MaxHealth", 10);
+        PlayerPrefs.SetInt("MaxHealth", 1);
         PlayerPrefs.SetInt("Health", 10);
         PlayerPrefs.SetInt("WeaponDamage", 1);
-        PlayerPrefs.SetFloat("bulletSpeed", 10);
+        PlayerPrefs.SetFloat("BulletSpeed", 1);
         PlayerPrefs.SetFloat("RateOfFire", 1);
-        PlayerPrefs.SetFloat("ShipSpeed", 10);
+        PlayerPrefs.SetFloat("ShipSpeed", 1);
     }
 
     public void UpdateProgress()
     {
         PlayerPrefs.SetInt("Level", level);
         PlayerPrefs.SetInt("Money", money);
-        PlayerPrefs.SetInt("MaxHealth", player.maxHealth);
+        PlayerPrefs.SetInt("MaxHealth", player.maxHealthModifier);
         PlayerPrefs.SetInt("Health", player.health);
         PlayerPrefs.SetInt("WeaponDamage", player.bulletDamage);
-        PlayerPrefs.SetFloat("bulletSpeed", player.bulletSpeed);
+        PlayerPrefs.SetFloat("BulletSpeed", player.bulletSpeed);
         PlayerPrefs.SetFloat("RateOfFire", player.shootSpeed);
         PlayerPrefs.SetFloat("ShipSpeed", player.moveSpeed);
     }

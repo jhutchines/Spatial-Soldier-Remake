@@ -19,7 +19,7 @@ public class SpawnEnemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        waitTime += Time.deltaTime;
+        if (gameManager.levelStarted) waitTime += Time.deltaTime;
         if (waitTime >= spawnTime && !gameManager.levelEnd && lastSpawn == null && gameManager.playerAlive)
         {
             waitTime = 0;
@@ -31,7 +31,7 @@ public class SpawnEnemy : MonoBehaviour
     void Spawn()
     {
         float largeChance = 1 + (gameManager.level / 2);
-        float mediumChance = 1 + gameManager.level;
+        float mediumChance = 1 + gameManager.level * 1.5f;
         float randomLocation = Random.Range(transform.position.x - 2, transform.position.x + 2);
 
         float spawnRandom = Random.Range(0f, 100f);

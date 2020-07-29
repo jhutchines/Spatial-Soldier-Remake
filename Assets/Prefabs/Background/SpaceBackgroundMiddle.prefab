@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 3346667841900308824}
   - component: {fileID: 3985058508078208724}
-  - component: {fileID: 5760868100919950732}
   - component: {fileID: 2922289969139772429}
   m_Layer: 0
   m_Name: SpaceBackgroundMiddle
@@ -83,21 +82,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &5760868100919950732
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2265926613512726162}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4050f592cec9dd0478d8e386b836ef36, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  resetPosition: {x: 0, y: 0}
-  moveTo: {x: 0, y: 0}
-  moveSpeed: 0
 --- !u!114 &2922289969139772429
 MonoBehaviour:
   m_ObjectHideFlags: 0
