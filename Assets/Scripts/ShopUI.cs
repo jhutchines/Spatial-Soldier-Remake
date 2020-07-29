@@ -109,6 +109,8 @@ public class ShopUI : MonoBehaviour
         {
             transform.GetChild(i).gameObject.SetActive(false);
         }
+        watchAdButton.SetActive(false);
+        watchAdButton.GetComponent<RewardedAdsButton>().GameEnd();
         audioSource.Play();
     }
 

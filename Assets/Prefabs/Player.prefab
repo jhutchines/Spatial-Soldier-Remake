@@ -99,6 +99,7 @@ MonoBehaviour:
   touchAllowed: 0
   chargeSound: {fileID: 8300000, guid: 5f7483d32cfe2f247b9ebc809fb274ab, type: 3}
   warpSound: {fileID: 8300000, guid: cb8303a6e0bbf1b49b4b9ed262ac8a39, type: 3}
+  startSound: {fileID: 8300000, guid: c6edd3058b347354a9f2374f1329309a, type: 3}
 --- !u!65 &8828282626311303422
 BoxCollider:
   m_ObjectHideFlags: 0

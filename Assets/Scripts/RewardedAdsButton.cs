@@ -28,7 +28,7 @@ public class RewardedAdsButton : MonoBehaviour, IUnityAdsListener
 
         // Initialize the Ads listener and service:
         Advertisement.AddListener(this);
-        Advertisement.Initialize(gameId, true);
+        Advertisement.Initialize(gameId, false);
 
         shopUI = GameObject.Find("ShopMenu");
     }
@@ -76,5 +76,10 @@ public class RewardedAdsButton : MonoBehaviour, IUnityAdsListener
     public void OnUnityAdsDidStart(string placementId)
     {
         // Optional actions to take when the end-users triggers an ad.
+    }
+
+    public void GameEnd()
+    {
+        Advertisement.RemoveListener(this);
     }
 }

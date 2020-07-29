@@ -29,6 +29,7 @@ public class PlayerControls : MonoBehaviour
 
     public AudioClip chargeSound;
     public AudioClip warpSound;
+    public AudioClip startSound;
     AudioSource audioSource;
 
     // Start is called before the first frame update
@@ -197,7 +198,7 @@ public class PlayerControls : MonoBehaviour
         yield return new WaitForSeconds(5f);
         audioSource.loop = false;
         audioSource.clip = warpSound;
-        audioSource.volume = 0.75f;
+        audioSource.volume = 0.5f;
         audioSource.Play();
         nextLevel = true;
         moveTo = new Vector3(transform.position.x, transform.position.y, transform.position.z + 20);
@@ -206,8 +207,8 @@ public class PlayerControls : MonoBehaviour
     IEnumerator StartLevel()
     {
         yield return new WaitForSeconds(1f);
-        audioSource.clip = warpSound;
-        audioSource.volume = 0.75f;
+        audioSource.clip = startSound;
+        audioSource.volume = 0.25f;
         audioSource.Play();
         moveTo = new Vector3(transform.position.x, transform.position.y, -1);
         yield return new WaitForSeconds(1f);
