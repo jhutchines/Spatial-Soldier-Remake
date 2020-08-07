@@ -78,7 +78,7 @@ public class ShopUI : MonoBehaviour
             transform.GetChild(i).gameObject.SetActive(true);
             yield return new WaitForSeconds(.2f);
         }
-        watchAdButton.transform.position = adButtonMoveTo.transform.position;
+        if (watchAdButton != null) watchAdButton.transform.position = adButtonMoveTo.transform.position;
     }
 
     void UpdateShop()
@@ -109,8 +109,11 @@ public class ShopUI : MonoBehaviour
         {
             transform.GetChild(i).gameObject.SetActive(false);
         }
-        watchAdButton.SetActive(false);
-        watchAdButton.GetComponent<RewardedAdsButton>().GameEnd();
+        if (watchAdButton != null)
+        {
+            watchAdButton.SetActive(false);
+            watchAdButton.GetComponent<RewardedAdsButton>().GameEnd();
+        }
         audioSource.Play();
     }
 
@@ -140,7 +143,7 @@ public class ShopUI : MonoBehaviour
 
     public void UpdateMaxHealth()
     {
-        if (CheckCanAfford(gameManager.maxHealth * 10))
+        if (CheckCanAfford(player.maxHealth * 10))
         {
             player.maxHealthModifier++;
             player.maxHealth++;

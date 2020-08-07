@@ -19,9 +19,9 @@ public class GameUI : MonoBehaviour
     void Update()
     {
         healthBar.GetComponent<RectTransform>().sizeDelta = new Vector2(player.health * 10, 10);
-        healthBar.GetComponent<RectTransform>().anchoredPosition = new Vector3(((player.health * 10) / 2) + 5, 10, 0);
+        healthBar.GetComponent<RectTransform>().anchoredPosition = new Vector3(((player.health * 10) / 2) + 15, 10, 0);
 
         damageBar.GetComponent<RectTransform>().sizeDelta = new Vector2(player.maxHealth * 10, 10);
-        damageBar.GetComponent<RectTransform>().anchoredPosition = new Vector3(((player.maxHealth * 10) / 2) + 5, 10, 0);
+        damageBar.GetComponent<RectTransform>().anchoredPosition = new Vector3(((player.maxHealth * 10) / 2) + 15, 10, 0);
     }
 }

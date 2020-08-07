@@ -25,6 +25,7 @@ public class PlayerControls : MonoBehaviour
     public bool levelStart = true;
     bool transition;
     public Vector3 moveTo;
+    public Vector3 moveToEnd;
     public bool touchAllowed;
 
     public AudioClip chargeSound;
@@ -114,7 +115,7 @@ public class PlayerControls : MonoBehaviour
 
         if (nextLevel)
         {
-            transform.position = Vector3.MoveTowards(transform.position, moveTo, 100f * Time.deltaTime);
+            transform.position = Vector3.MoveTowards(transform.position, moveToEnd, 100f * Time.deltaTime);
         }
 
         if (levelStart && moveTo != new Vector3(0, 0, 0))
@@ -196,12 +197,12 @@ public class PlayerControls : MonoBehaviour
         audioSource.loop = true;
         audioSource.Play();
         yield return new WaitForSeconds(5f);
+        nextLevel = true;
         audioSource.loop = false;
         audioSource.clip = warpSound;
         audioSource.volume = 0.5f;
         audioSource.Play();
-        nextLevel = true;
-        moveTo = new Vector3(transform.position.x, transform.position.y, transform.position.z + 20);
+        moveToEnd = new Vector3(transform.position.x, transform.position.y, transform.position.z + 20);
     }
 
     IEnumerator StartLevel()

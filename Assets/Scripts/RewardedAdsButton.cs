@@ -16,8 +16,15 @@ public class RewardedAdsButton : MonoBehaviour, IUnityAdsListener
     public string myPlacementId = "rewardedVideo";
     public GameObject shopUI;
 
+    private void Awake()
+    {
+        if (GameObject.Find("Background").GetComponent<GameManager>().fullVersion) Destroy(gameObject);
+        
+    }
+
     void Start()
     {
+
         myButton = GetComponent<Button>();
 
         // Set interactivity to be dependent on the Placement’s status:
@@ -60,16 +67,19 @@ public class RewardedAdsButton : MonoBehaviour, IUnityAdsListener
         }
         else if (showResult == ShowResult.Skipped)
         {
+            myButton.transform.GetChild(0).GetComponent<Text>().text = "Show ad skipped.";
             // Do not reward the user for skipping the ad.
         }
         else if (showResult == ShowResult.Failed)
         {
+            myButton.transform.GetChild(0).GetComponent<Text>().text = "Show ad failed.";
             Debug.LogWarning("The ad did not finish due to an error.");
         }
     }
 
     public void OnUnityAdsDidError(string message)
     {
+        myButton.transform.GetChild(0).GetComponent<Text>().text = message;
         // Log the error.
     }
 

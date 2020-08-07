@@ -6,6 +6,8 @@ public class GameManager : MonoBehaviour
 {
     public bool playerAlive = true;
 
+    public bool fullVersion;
+
     public enum BulletType {Player, Enemy}
 
     public GameObject[] explosions;
