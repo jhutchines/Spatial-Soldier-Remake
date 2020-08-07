@@ -10,6 +10,10 @@ public class GameManager : MonoBehaviour
 
     public enum BulletType {Player, Enemy}
 
+    public enum PickUpType {None, Repair, TripleShot, BigShot, LaserBeam}
+
+    public GameObject[] pickUps;
+
     public GameObject[] explosions;
     public GameObject[] enemySmall;
     public GameObject[] enemyMedium;

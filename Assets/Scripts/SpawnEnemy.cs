@@ -13,7 +13,7 @@ public class SpawnEnemy : MonoBehaviour
     void Start()
     {
         gameManager = GameObject.Find("Background").GetComponent<GameManager>();
-        spawnTime = Random.Range(5f, 9f);
+        spawnTime = Random.Range(3f, 7f);
     }
 
     // Update is called once per frame

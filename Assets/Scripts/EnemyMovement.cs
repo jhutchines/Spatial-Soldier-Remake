@@ -49,6 +49,10 @@ public class EnemyMovement : MonoBehaviour
         explosions.transform.localScale = explosionSize;
         explosions.GetComponent<RemoveExplosion>().moveTowards = moveTowards;
         explosions.GetComponent<RemoveExplosion>().speed = shipSpeed;
+        if (Random.Range(1, 21) >= 17)
+        {
+            Instantiate(gameManager.pickUps[Random.Range(0, gameManager.pickUps.Length)], transform.position, transform.rotation);
+        }
         yield return new WaitForSeconds(.8f);
         Destroy(gameObject);
     }

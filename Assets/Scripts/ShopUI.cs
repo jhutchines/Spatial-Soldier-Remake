@@ -143,7 +143,7 @@ public class ShopUI : MonoBehaviour
 
     public void UpdateMaxHealth()
     {
-        if (CheckCanAfford(player.maxHealth * 10))
+        if (CheckCanAfford(player.maxHealthModifier * 10))
         {
             player.maxHealthModifier++;
             player.maxHealth++;
