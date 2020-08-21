@@ -23,7 +23,7 @@ public class SpawnEnemy : MonoBehaviour
         if (waitTime >= spawnTime && !gameManager.levelEnd && lastSpawn == null && gameManager.playerAlive)
         {
             waitTime = 0;
-            spawnTime = Random.Range(5f / Mathf.Clamp(1 + gameManager.level / 10, .5f, 5f), 9f / Mathf.Clamp(1 + gameManager.level / 10, .9f, 9f));
+            spawnTime = Random.Range(4f / Mathf.Clamp(1 + gameManager.level / 10, .5f, 4f), 8f / Mathf.Clamp(1 + gameManager.level / 10, .9f, 8f));
             Spawn();
         }
     }

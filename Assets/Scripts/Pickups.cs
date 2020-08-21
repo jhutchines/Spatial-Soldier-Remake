@@ -38,7 +38,7 @@ public class Pickups : MonoBehaviour
                 }
                 else other.GetComponent<PlayerControls>().health = other.GetComponent<PlayerControls>().maxHealth;
             }
-
+            other.GetComponent<PlayerControls>().PickupAudio(pickUpType);
             Destroy(gameObject);
         }
     }

@@ -20,6 +20,7 @@ public class PlayerControls : MonoBehaviour
     float reloadTime;
     GameObject turret;
     GameManager gameManager;
+    RewardedAdsButton adsButton;
     PersistentData persistentData;
     public bool nextLevel;
     public bool levelStart = true;
@@ -35,7 +36,10 @@ public class PlayerControls : MonoBehaviour
 
     public GameManager.PickUpType pickUpType;
     public float pickupTime;
+    public AudioClip repairSound;
+    public AudioClip weaponSound;
     float laserAttackTime;
+    public AudioSource laserAudioSource;
 
     LineRenderer lineRenderer;
 
@@ -46,6 +50,7 @@ public class PlayerControls : MonoBehaviour
         reloadTime = shootSpeed;
         gameManager = GameObject.Find("Background").GetComponent<GameManager>();
         audioSource = GetComponent<AudioSource>();
+        adsButton = GameObject.Find("AdButton").GetComponent<RewardedAdsButton>();
         if (!debugMode)
         {
             persistentData = GameObject.Find("PersistentData").GetComponent<PersistentData>();
@@ -115,6 +120,7 @@ public class PlayerControls : MonoBehaviour
             if (target != null) AttackTarget();
             else
             {
+                laserAudioSource.Stop();
                 lineRenderer.positionCount = 0;
                 laserAttackTime = 0;
             }
@@ -165,23 +171,26 @@ public class PlayerControls : MonoBehaviour
             {
                 if (pickUpType == GameManager.PickUpType.LaserBeam)
                 {
+                    if (!laserAudioSource.isPlaying) laserAudioSource.Play();
                     turret.transform.LookAt(target.transform.position);
                     lineRenderer.positionCount = 2;
                     lineRenderer.SetPosition(0, new Vector3(transform.position.x, 1, transform.position.z));
                     lineRenderer.SetPosition(1, new Vector3(target.transform.position.x, 1, target.transform.position.z));
                     laserAttackTime += Time.deltaTime;
-                    if (laserAttackTime >= .5f)
+                    if (laserAttackTime >= (1.05f - (0.05f * shootSpeed)))
                     {
                         target.GetComponent<EnemyMovement>().TakeDamage(target.transform.position, bulletDamage);
+                        gameManager.AddMoney(1);
                         laserAttackTime = 0;
                     }
                 }
 
                 else
                 {
+                    laserAudioSource.Stop();
                     laserAttackTime = 0;
-                    turret.transform.LookAt(targetPos);
                     lineRenderer.positionCount = 0;
+                    turret.transform.LookAt(targetPos);
                     reloadTime = 0;
                     GameObject newBullet = Instantiate(bullet, transform.position + transform.GetChild(1).TransformDirection(Vector3.forward), transform.GetChild(1).rotation);
                     newBullet.GetComponent<Bullet>().bulletDamage = bulletDamage;
@@ -189,24 +198,34 @@ public class PlayerControls : MonoBehaviour
 
                     if (pickUpType == GameManager.PickUpType.TripleShot)
                     {
+                        int newBulletDamage = Mathf.RoundToInt(bulletDamage / 2);
+                        if (newBulletDamage == 0) newBulletDamage = 1;
+
                         GameObject newBullet1 = Instantiate(bullet, transform.position + transform.GetChild(1).TransformDirection(Vector3.forward + (Vector3.left / 2)), transform.GetChild(1).rotation);
-                        newBullet1.GetComponent<Bullet>().bulletDamage = bulletDamage;
+                        newBullet1.GetComponent<Bullet>().bulletDamage = newBulletDamage;
                         newBullet1.GetComponent<Bullet>().bulletSpeed = bulletSpeed + 9;
 
                         GameObject newBullet2 = Instantiate(bullet, transform.position + transform.GetChild(1).TransformDirection(Vector3.forward + Vector3.right / 2), transform.GetChild(1).rotation);
-                        newBullet2.GetComponent<Bullet>().bulletDamage = bulletDamage;
+                        newBullet2.GetComponent<Bullet>().bulletDamage = newBulletDamage;
                         newBullet2.GetComponent<Bullet>().bulletSpeed = bulletSpeed + 9;
                     }
 
                     if (pickUpType == GameManager.PickUpType.BigShot)
                     {
                         newBullet.transform.localScale = new Vector3(2.5f, 1, 2.5f);
-                        newBullet.GetComponent<Bullet>().bulletSpeed = bulletSpeed + 10;
+                        newBullet.GetComponent<Bullet>().bulletSpeed = bulletSpeed + 9;
+                        newBullet.GetComponent<Bullet>().bulletDamage = bulletDamage + 1;
                     }
 
                 }
 
             }
+        }
+        else
+        {
+            laserAttackTime = 0;
+            lineRenderer.positionCount = 0;
+            laserAudioSource.Stop();
         }
     }
 
@@ -230,6 +249,7 @@ public class PlayerControls : MonoBehaviour
         GameObject explosions = Instantiate(gameManager.explosions[0], transform.position, transform.GetChild(0).rotation);
         explosions.transform.localScale = new Vector3(4, 4, 1);
         gameManager.ResetProgress();
+        adsButton.GameEnd();
         yield return new WaitForSeconds(.8f);
         gameManager.gameOver.SetActive(true);
         Destroy(gameObject);
@@ -271,6 +291,24 @@ public class PlayerControls : MonoBehaviour
         {
             pickUpType = GameManager.PickUpType.None;
             pickupTime = 0;
+        }
+    }
+
+    public void PickupAudio(GameManager.PickUpType pickUp)
+    {
+        if (!transition)
+        {
+            audioSource.volume = 0.8f;
+            if (pickUp == GameManager.PickUpType.Repair)
+            {
+                audioSource.clip = repairSound;
+                audioSource.Play();
+            }
+            else
+            {
+                audioSource.clip = weaponSound;
+                audioSource.Play();
+            }
         }
     }
 }

@@ -363,7 +363,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b64a0dc51371e3345a0060adc23934da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startingHealth: 5
+  startingHealth: 8
   health: 6
   damageAnim: {fileID: 3111123917154870009, guid: 8caf3297747e5544b83bcfe28ebd7dd7,
     type: 3}

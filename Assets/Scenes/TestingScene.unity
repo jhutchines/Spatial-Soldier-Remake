@@ -454,6 +454,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerAlive: 1
   fullVersion: 0
+  moneyMultiplier: 0
   pickUps: []
   explosions:
   - {fileID: 508543884788189066, guid: 035cc240ccfb36048b7491982a537a58, type: 3}
@@ -1228,7 +1229,7 @@ PrefabInstance:
     - target: {fileID: 1403015061266635115, guid: c6e9e2aa2c55b154da0981ba6f1732fb,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -40
+      value: -5
       objectReference: {fileID: 0}
     - target: {fileID: 1403015061266635115, guid: c6e9e2aa2c55b154da0981ba6f1732fb,
         type: 3}

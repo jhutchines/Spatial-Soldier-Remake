@@ -29,7 +29,8 @@ public class EnemyShooting : MonoBehaviour
             if (reloadTime >= Random.Range(0.85f, shootTime))
             {
                 reloadTime = 0;
-                Instantiate(GetComponentInParent<EnemyMovement>().bullet, transform.position + transform.TransformDirection(Vector3.forward), transform.rotation);
+                GameObject newBullet = Instantiate(GetComponentInParent<EnemyMovement>().bullet, transform.position + transform.TransformDirection(Vector3.forward), transform.rotation);
+                newBullet.GetComponent<Bullet>().bulletDamage = 1 + Mathf.RoundToInt(gameManager.level / 2);
             }
         }
     }

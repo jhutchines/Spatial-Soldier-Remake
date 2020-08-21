@@ -24,10 +24,12 @@ public class MainMenu : MonoBehaviour
         if (persistentData.controllerType == PersistentData.ControllerType.Touchscreen)
         {
             controllerType.text = "Touchscreen Mode";
+            controllerType.gameObject.transform.parent.GetChild(1).GetComponent<Text>().text = "Analog Mode";
         }
         else
         {
             controllerType.text = "Analog Mode";
+            controllerType.gameObject.transform.parent.GetChild(1).GetComponent<Text>().text = "Touchscreen Mode";
         }
 
         if (fadeReverse.activeSelf)

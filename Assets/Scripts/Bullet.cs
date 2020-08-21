@@ -6,7 +6,6 @@ public class Bullet : MonoBehaviour
 {
     public float bulletSpeed;
     public int bulletDamage = 1;
-    int moneyMultiplier = 1;
     float destroyTime;
     public GameManager.BulletType bulletType;
     GameManager gameManager;
@@ -16,8 +15,7 @@ public class Bullet : MonoBehaviour
     void Start()
     {
         gameManager = GameObject.Find("Background").GetComponent<GameManager>();
-        if (gameManager.fullVersion) moneyMultiplier = 2;
-        else moneyMultiplier = 1;
+        
     }
 
     // Update is called once per frame
@@ -36,7 +34,7 @@ public class Bullet : MonoBehaviour
             {
                 alreadyHit = true;
                 other.GetComponent<EnemyMovement>().TakeDamage(transform.position, bulletDamage);
-                gameManager.AddMoney(1 * moneyMultiplier);
+                gameManager.AddMoney(1);
                 Destroy(gameObject);
             }
         }

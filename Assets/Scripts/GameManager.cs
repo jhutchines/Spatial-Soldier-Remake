@@ -7,6 +7,7 @@ public class GameManager : MonoBehaviour
     public bool playerAlive = true;
 
     public bool fullVersion;
+    public int moneyMultiplier;
 
     public enum BulletType {Player, Enemy}
 
@@ -81,9 +82,11 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (fullVersion) moneyMultiplier = 2;
+        else moneyMultiplier = 1;
         enemies = FindObjectsOfType<EnemyMovement>();
         time += Time.deltaTime;
-        if (time >= (49f + level))
+        if (time >= (59f + level))
         {
             levelEnd = true;
         }
@@ -97,7 +100,7 @@ public class GameManager : MonoBehaviour
 
     public void AddMoney(int amount)
     {
-        money += amount;
+        money += amount * moneyMultiplier;
     }
 
     public void NextLevel()

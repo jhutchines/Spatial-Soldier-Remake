@@ -1668,7 +1668,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 175, y: -25}
+  m_AnchoredPosition: {x: 260, y: -25}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &576167292
@@ -1696,7 +1696,7 @@ MonoBehaviour:
     m_BestFit: 0
     m_MinSize: 0
     m_MaxSize: 40
-    m_Alignment: 4
+    m_Alignment: 3
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
@@ -1857,7 +1857,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Money:'
+  m_Text: 'Salvage:'
 --- !u!222 &638638151
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -6288,6 +6288,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerAlive: 1
   fullVersion: 0
+  moneyMultiplier: 0
   pickUps:
   - {fileID: 4059138612054657503, guid: 27108e7e87e5a334086c57b2a34a688a, type: 3}
   - {fileID: 6356786519200609026, guid: fe4b0bced68db6d45804481dda023095, type: 3}
